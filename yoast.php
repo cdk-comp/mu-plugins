@@ -1,9 +1,11 @@
 <?php
-/**
- * @package     cdk
- * @copyright   Copyright (C) 2019 Zorca, Dima Minka, CDK. All rights reserved.
- * @license     See LICENSE file for details.
- */
+/*
+Plugin Name: Yoast Helpers
+Description: Pagination meta override
+Author: Zorca, Dima Minka, CDK
+Version: 1.0
+Author URI: https://dima.mk
+*/
 
 /** Add Page Number to Title and Meta Description for SEO **/
 if (!function_exists('multipage_metadesc')) {
