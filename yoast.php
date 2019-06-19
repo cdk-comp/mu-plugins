@@ -1,4 +1,4 @@
-?php
+<?php
 /**
  * @package     cdk
  * @copyright   Copyright (C) 2019 Zorca, Dima Minka, CDK. All rights reserved.
