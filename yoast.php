@@ -31,3 +31,45 @@ if (!function_exists('multipage_title')) {
     }
     add_filter('wpseo_title', 'multipage_title', 100, 1);
 }
+
+/** Make the last item of breadcrumbs a link */
+if ( ! function_exists( 'wpseo_convert_current_page_to_link' ) ) {
+	/**
+	 * @param $link_output
+	 * @param $link
+	 *
+	 * @return string|string[]|null
+	 */
+	function wpseo_convert_current_page_to_link( $link_output, $link ) {
+		$result = $link_output;
+
+		if ( stripos( $link_output, 'breadcrumb_last' ) !== false ) {
+
+			$a_attributes = [
+				'href'         => esc_url( $link['url'] ),
+				'class'        => 'breadcrumb_last',
+				'aria-current' => 'page',
+			];
+
+			if ( isset( $link['title'] ) ) {
+				$a_attributes['title'] = esc_attr( $link['title'] );
+			}
+
+			$a_atr_str = '';
+			foreach ( $a_attributes as $attr_name => $attr_value ) {
+				$a_atr_str .= " $attr_name=\"$attr_value\"";
+			}
+
+			$link    = "<a$a_atr_str>{$link['text']}</a>";
+			$wrapper = apply_filters( 'wpseo_breadcrumb_single_link_wrapper', 'span' );
+			$preg_result = preg_replace( "/<$wrapper.*>.+<\/$wrapper>/U", $link, $link_output );
+			if ( ! empty( $preg_result ) ) {
+				$result = $preg_result;
+			}
+		}
+
+		return $result;
+	}
+
+	add_filter( 'wpseo_breadcrumb_single_link', 'wpseo_convert_current_page_to_link', 10, 2 );
+}
