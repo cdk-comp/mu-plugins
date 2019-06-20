@@ -60,8 +60,8 @@ if ( ! function_exists( 'wpseo_convert_current_page_to_link' ) ) {
 				$a_atr_str .= " $attr_name=\"$attr_value\"";
 			}
 
-			$link    = "<a$a_atr_str>{$link['text']}</a>";
-			$wrapper = apply_filters( 'wpseo_breadcrumb_single_link_wrapper', 'span' );
+			$link        = "<a$a_atr_str>{$link['text']}</a>";
+			$wrapper     = WPSEO_Options::get( 'breadcrumbs-boldlast' ) === true ? 'strong' : 'span';
 			$preg_result = preg_replace( "/<$wrapper.*>.+<\/$wrapper>/U", $link, $link_output );
 			if ( ! empty( $preg_result ) ) {
 				$result = $preg_result;
