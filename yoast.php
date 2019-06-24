@@ -14,7 +14,8 @@ if (!function_exists('multipage_metadesc')) {
         global $page;
         $paged = get_query_var('paged') ? get_query_var('paged') : 1;
         !empty($page) && 1 < $page && $paged = $page;
-        $paged > 1 && $s .= ' - ' . sprintf(__('Page %s'), $paged);
+        $site_title = !$s ? get_bloginfo() . '&nbsp;' : '';
+        $paged > 1 && $s = $site_title . $s . ' - ' . sprintf(__('Page %s'), $paged);
         return $s;
     }
     add_filter('wpseo_metadesc', 'multipage_metadesc', 100, 1);
